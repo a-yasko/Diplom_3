@@ -5,7 +5,7 @@ import org.junit.Test;
 import pages.*;
 
 import static com.codeborne.selenide.Selenide.open;
-import static steps.Steps.register;
+import static data.TestData.getBaseUrl;
 
 public class LoginTest {
   @After
@@ -16,9 +16,11 @@ public class LoginTest {
   @Test
   @DisplayName("Login by button 'Login to account' on main page")
   public void loginByButtonLoginToAccount() {
-    String email = register();
+    RegisterPage registerPage = open(getBaseUrl() + "/register", RegisterPage.class);
+    registerPage.waitForLoadRegisterPage();
+    String email = registerPage.registerUser();
 
-    MainPage mainPage = open("https://stellarburgers.nomoreparties.site/", MainPage.class);
+    MainPage mainPage = open(getBaseUrl(), MainPage.class);
     mainPage.waitForLoadMainPage();
     mainPage.getLoginButton().click();
 
@@ -39,9 +41,11 @@ public class LoginTest {
   @Test
   @DisplayName("Login by button 'Personal account'")
   public void loginByButtonPersonalAccount() {
-    String email = register();
+    RegisterPage registerPage = open(getBaseUrl() + "/register", RegisterPage.class);
+    registerPage.waitForLoadRegisterPage();
+    String email = registerPage.registerUser();
 
-    MainPage mainPage = open("https://stellarburgers.nomoreparties.site/", MainPage.class);
+    MainPage mainPage = open(getBaseUrl(), MainPage.class);
     mainPage.getPersonalAccountButton().click();
 
     LoginPage loginPage = Selenide.page(new LoginPage());
@@ -61,9 +65,11 @@ public class LoginTest {
   @Test
   @DisplayName("Login by button 'Login' on register page")
   public void loginByButtonLoginOnRegisterPage() {
-    String email = register();
+    RegisterPage registerPage = open(getBaseUrl() + "/register", RegisterPage.class);
+    registerPage.waitForLoadRegisterPage();
+    String email = registerPage.registerUser();
 
-    MainPage mainPage = open("https://stellarburgers.nomoreparties.site/", MainPage.class);
+    MainPage mainPage = open(getBaseUrl(), MainPage.class);
     mainPage.getPersonalAccountButton().click();
 
     LoginPage loginPage = Selenide.page(new LoginPage());
@@ -83,9 +89,11 @@ public class LoginTest {
   @Test
   @DisplayName("Login by button 'Login' on forgot-password page")
   public void loginByButtonLoginOnForgotPasswordPage() {
-    String email = register();
+    RegisterPage registerPage = open(getBaseUrl() + "/register", RegisterPage.class);
+    registerPage.waitForLoadRegisterPage();
+    String email = registerPage.registerUser();
 
-    ForgotPasswordPage forgotPasswordPage = open("https://stellarburgers.nomoreparties.site/forgot-password", ForgotPasswordPage.class);
+    ForgotPasswordPage forgotPasswordPage = open(getBaseUrl() + "/forgot-password", ForgotPasswordPage.class);
     forgotPasswordPage.waitForLoadForgotPasswordPage();
     forgotPasswordPage.getLoginButton().click();
 

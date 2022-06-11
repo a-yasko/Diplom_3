@@ -4,17 +4,20 @@ import org.junit.Test;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.ProfilePage;
+import pages.RegisterPage;
 
 import static com.codeborne.selenide.Selenide.open;
-import static steps.Steps.register;
+import static data.TestData.getBaseUrl;
 
 public class LogoutTest {
   @Test
   @DisplayName("Logout")
   public void logout() {
-    String email = register();
+    RegisterPage registerPage = open(getBaseUrl() + "/register", RegisterPage.class);
+    registerPage.waitForLoadRegisterPage();
+    String email = registerPage.registerUser();
 
-    MainPage mainPage = open("https://stellarburgers.nomoreparties.site/", MainPage.class);
+    MainPage mainPage = open(getBaseUrl(), MainPage.class);
     mainPage.waitForLoadMainPage();
     mainPage.getLoginButton().click();
 

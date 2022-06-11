@@ -6,19 +6,18 @@ import pages.LoginPage;
 import pages.MainPage;
 import pages.RegisterPage;
 
-import java.time.Duration;
-
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.webdriver;
 import static com.codeborne.selenide.WebDriverConditions.url;
+import static data.TestData.getBaseUrl;
 import static java.time.Duration.ofSeconds;
 
 public class RegisterTest {
   @Test
   @DisplayName("Success register")
   public void successRegister() {
-    MainPage mainPage = open("https://stellarburgers.nomoreparties.site/", MainPage.class);
+    MainPage mainPage = open(getBaseUrl(), MainPage.class);
     mainPage.waitForLoadMainPage();
     mainPage.getPersonalAccountButton().click();
 
@@ -33,13 +32,13 @@ public class RegisterTest {
     registerPage.getPasswordInput().setValue("123456");
     registerPage.getRegisterButton().click();
 
-    webdriver().shouldHave(url("https://stellarburgers.nomoreparties.site/login"));
+    webdriver().shouldHave(url(getBaseUrl() + "/login"));
   }
 
   @Test
   @DisplayName("Register with invalid password")
   public void registerWithInvalidPassword() {
-    MainPage mainPage = open("https://stellarburgers.nomoreparties.site/", MainPage.class);
+    MainPage mainPage = open(getBaseUrl(), MainPage.class);
     mainPage.waitForLoadMainPage();
     mainPage.getPersonalAccountButton().click();
 

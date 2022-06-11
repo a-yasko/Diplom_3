@@ -5,9 +5,10 @@ import org.junit.Test;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.ProfilePage;
+import pages.RegisterPage;
 
 import static com.codeborne.selenide.Selenide.open;
-import static steps.Steps.register;
+import static data.TestData.getBaseUrl;
 
 public class FollowingToLinksTest {
   @After
@@ -18,9 +19,11 @@ public class FollowingToLinksTest {
   @Test
   @DisplayName("Following to personal account")
   public void followingToPersonalAccount() {
-    String email = register();
+    RegisterPage registerPage = open(getBaseUrl() + "/register", RegisterPage.class);
+    registerPage.waitForLoadRegisterPage();
+    String email = registerPage.registerUser();
 
-    MainPage mainPage = open("https://stellarburgers.nomoreparties.site/", MainPage.class);
+    MainPage mainPage = open(getBaseUrl(), MainPage.class);
     mainPage.waitForLoadMainPage();
     mainPage.getLoginButton().click();
 
@@ -41,9 +44,11 @@ public class FollowingToLinksTest {
   @Test
   @DisplayName("Following from personal account to constructor by button 'Constructor'")
   public void followingToConstructorByMenu() {
-    String email = register();
+    RegisterPage registerPage = open(getBaseUrl() + "/register", RegisterPage.class);
+    registerPage.waitForLoadRegisterPage();
+    String email = registerPage.registerUser();
 
-    MainPage mainPage = open("https://stellarburgers.nomoreparties.site/", MainPage.class);
+    MainPage mainPage = open(getBaseUrl(), MainPage.class);
     mainPage.waitForLoadMainPage();
     mainPage.getLoginButton().click();
 
@@ -68,9 +73,11 @@ public class FollowingToLinksTest {
   @Test
   @DisplayName("Following from personal account to constructor by logo")
   public void followingToConstructorByLogo() {
-    String email = register();
+    RegisterPage registerPage = open(getBaseUrl() + "/register", RegisterPage.class);
+    registerPage.waitForLoadRegisterPage();
+    String email = registerPage.registerUser();
 
-    MainPage mainPage = open("https://stellarburgers.nomoreparties.site/", MainPage.class);
+    MainPage mainPage = open(getBaseUrl(), MainPage.class);
     mainPage.waitForLoadMainPage();
     mainPage.getLoginButton().click();
 

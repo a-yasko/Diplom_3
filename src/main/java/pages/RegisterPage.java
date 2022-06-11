@@ -2,6 +2,7 @@ package pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -108,5 +109,16 @@ public class RegisterPage {
     getRegisterHeader().shouldBe(visible, ofSeconds(10));
     getEmailInput().shouldBe(visible, ofSeconds(10));
     getRegisterButton().shouldBe(visible, ofSeconds(10));
+  }
+
+  public String registerUser() {
+    String email = RandomStringUtils.randomAlphabetic(10) + "test-qa123@ya.ru";
+
+    getNameInput().setValue("Alexander");
+    getEmailInput().setValue(email);
+    getPasswordInput().setValue("123456");
+    getRegisterButton().click();
+
+    return email;
   }
 }
